@@ -6,7 +6,7 @@ This is a proof-of-concept for running bokeh server as a Cloud Foundry applicati
 
 ```
 git clone https://github.com/snowch/bokeh-cloud-foundry.git
-cd bokeh-cloud-foundry/
+cd bokeh-cloud-foundry/standalone_basic
 virtualenv venv
 source venv/bin/activate
 pip install -r requirements.txt
@@ -17,7 +17,7 @@ python bokeh_server.py
 
 ```
 git clone https://github.com/snowch/bokeh-cloud-foundry.git
-cd bokeh-cloud-foundry/
+cd bokeh-cloud-foundry/standalone_basic
 cf login ...
 # edit manifest.yml to provide unique route and set ALLOW_WEBSOCKET_ORIGIN
 cf push
