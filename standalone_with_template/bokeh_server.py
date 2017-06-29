@@ -6,7 +6,7 @@ from jinja2 import Template
 from bokeh.application.handlers import FunctionHandler
 from bokeh.application import Application
 from bokeh.layouts import column
-from bokeh.models import ColumnDataSource, Slider
+from bokeh.models import ColumnDataSource, Slider, Div
 from bokeh.plotting import figure
 from bokeh.server.server import Server
 from bokeh.themes import Theme
@@ -68,7 +68,14 @@ def modify_doc(doc):
     </body>
 </html>''')
 
-    doc.add_root( column(slider, plot) )
+    some_text = Div(text="<h1>Some More Text</h1>")
+
+    doc.add_root( 
+            column(
+                column(slider, plot),
+                some_text
+                )
+            )
 
     doc.theme = Theme(json=yaml.load("""
         attrs:
