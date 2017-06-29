@@ -1,0 +1,11 @@
+---
+applications:
+ - name: bokeh-cloud-foundry
+   memory: 128M
+   routes:
+   # choose an available unique route(s)
+   - route: bokeh-cloud-foundry.mybluemix.net
+   env:
+     # This must be a list of all the routes into your application
+     ALLOW_WEBSOCKET_ORIGIN: "bokeh-cloud-foundry.mybluemix.net:80,bokeh-cloud-foundry.mybluemix.net:443"
+
