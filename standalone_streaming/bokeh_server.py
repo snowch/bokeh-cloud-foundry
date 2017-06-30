@@ -36,7 +36,7 @@ def modify_doc(doc):
     df_all = pd.read_csv('data.csv')
     df_all['Date'] = pd.to_datetime(df_all['Date'])
 
-    start_data_df = df_all[0:100]
+    start_data_df = df_all[0:350]
     
     start_data_df.loc[ :, 'color' ] = 'green'
 
@@ -59,13 +59,15 @@ def modify_doc(doc):
         try:
             curr_rec
         except NameError:
-            curr_rec = 100
+            curr_rec = 350
 
         df = df_all[curr_rec:curr_rec+1]
-        df.loc[ :, 'color' ] = 'blue'
 
         if df.shape[0] > 0:
+            df.loc[ :, 'color' ] = 'blue'
             new_data = df.to_dict(orient='list')
+
+            print(new_data)
             source.stream( new_data )
             curr_rec = curr_rec + 1
 
