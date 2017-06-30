@@ -412,6 +412,7 @@ data = io.StringIO("""Date,ALL_EXCL_FUEL,MOSTLY_FOOD,NON_SPECIALISED,TEXTILE,HOU
 2017 May,6767803,3053608,601989,894305,600224,946330,671348
 """)
 
+# This example simulates reading from a stream such as kafka
 
 def modify_doc(doc):
     
