@@ -35,10 +35,12 @@ def modify_doc(doc):
     
     df_all = pd.read_csv('data.csv')
     df_all['Date'] = pd.to_datetime(df_all['Date'])
-    
-    start_data = df_all[0:10].to_dict(orient='list')
 
-    source = ColumnDataSource(data=start_data)
+    start_data_df = df_all[0:100]
+    
+    start_data_df.loc[ :, 'color' ] = 'green'
+
+    source = ColumnDataSource(data=start_data_df.to_dict(orient='list'))
 
     plot = figure(x_axis_type='datetime', 
                   y_range=(0, 10000000), 
@@ -49,18 +51,20 @@ def modify_doc(doc):
     plot.line('Date', 'MOSTLY_FOOD',     color='lightblue', alpha=1, source=source)
     plot.line('Date', 'NON_SPECIALISED', color='grey',      alpha=1, source=source)
 
+    plot.circle('Date', 'ALL_EXCL_FUEL', color='color', fill_alpha=0.2, size=4, source=source)
+
     def callback():
         # FIXME: how can we save this in the user's session?
         global curr_rec
         try:
             curr_rec
         except NameError:
-            curr_rec = 10
+            curr_rec = 100
 
         df = df_all[curr_rec:curr_rec+1]
+        df.loc[ :, 'color' ] = 'blue'
 
         if df.shape[0] > 0:
-            # hardcode update values for now
             new_data = df.to_dict(orient='list')
             source.stream( new_data )
             curr_rec = curr_rec + 1
