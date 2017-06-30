@@ -1,1 +1,1 @@
-command: python bokeh_standalone.py
+command: python bokeh_server.py
