@@ -19,8 +19,8 @@ PORT = int(os.getenv('PORT', '5000'))
 HOST = "0.0.0.0"
 
 try:
-    # This is set in the cloud foundry manifest. If we are running on 
-    # cloud foundry, this will be set for us.
+    # We are not running on cloud foundry so we must be running locally
+    # This variable is set in the manifest.yml
     ALLOW_WEBSOCKET_ORIGIN = os.getenv("ALLOW_WEBSOCKET_ORIGIN").split(',')
 except:
     # We are not running on cloud foundry so we must be running locally
@@ -54,14 +54,12 @@ def modify_doc(doc):
     plot.circle('Date', 'ALL_EXCL_FUEL', color='color', fill_alpha=0.2, size=4, source=source)
 
     def callback():
-        # FIXME: how can we save this in the user's session?
-        global curr_rec
         try:
-            curr_rec
+            _document.curr_rec
         except NameError:
-            curr_rec = 350
+            _document.curr_rec = 350
 
-        df = df_all[curr_rec:curr_rec+1]
+        df = df_all[_document.curr_rec:_document.curr_rec+1]
 
         if df.shape[0] > 0:
             df.loc[ :, 'color' ] = 'blue'
@@ -69,7 +67,7 @@ def modify_doc(doc):
 
             print(new_data)
             source.stream( new_data )
-            curr_rec = curr_rec + 1
+            _document.curr_rec = _document.curr_rec + 1
 
     doc.add_root(plot)
     doc.add_periodic_callback(callback, 250)
